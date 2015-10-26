@@ -15,28 +15,23 @@ package br.com.trabalhocompiladores;
  */
 public class Main {
 
-	public static void main(String[] args) {
-            AnalisadorLexico analisadorLexico = new AnalisadorLexico();
-            TabelaSimbolos tabelaSimbolo = new TabelaSimbolos();
+    public static void main(String[] args) {
 
-            String codigo = TrataArquivoFonte.LerArquivo();
+        AnalisadorSintatico Parser = new AnalisadorSintatico();
+        
+        try {
+            
+        String codigo = TrataArquivoFonte.LerArquivo();
 
-            System.out.println("\n CÓDIGO FONTE LIDO: \n");
-            System.out.println(codigo);
+        System.out.println("\n CÓDIGO FONTE LIDO: \n");
+        System.out.println(codigo);
+        
+        Parser.setArquivoFonte(codigo);
+        Parser.parse();
+            
+        } catch (Exception e) {
+            System.out.print(e);
+        }
 
-            analisadorLexico.setTabelaSimbolos(tabelaSimbolo);
-            analisadorLexico.setEntrada(codigo);
-
-            System.out.println("\n ANALISADOR LEXICO: \n");
-            RegistroLexico registro = null;
-            registro = analisadorLexico.obterProx();
-
-            while(registro.getToken()!=TipoToken.FIM_DE_ARQUIVO){
-                System.out.println(registro);
-                registro = analisadorLexico.obterProx();
-            }
-
-            System.out.println("\n TABELA DE SIMBOLOS: \n");
-            tabelaSimbolo.print();
-	}
+    }
 }

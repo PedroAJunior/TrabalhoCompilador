@@ -1,7 +1,14 @@
-package br.com.trabalhocompiladores;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package compiladorPapoMane;
 
-
-
+/**
+ *
+ * @author henrique
+ */
 public class TratamentoErros {
     
     private static TratamentoErros Instancia = null;
@@ -24,31 +31,32 @@ public class TratamentoErros {
         this.QuantidadeErros = 0;
     }
     
-    public void erroLexico(int Linha, int Coluna, String Msg){
-        QuantidadeErros++;
-        System.out.printf("Erro lexico na linha %d, coluna %d: %s \n",Linha,Coluna,Msg);
-    }
-    
     public int getQuantidadeErros(){
         return QuantidadeErros;
+    }
+
+    public void erroLexico(int Linha, int Coluna, String Msg){
+        QuantidadeErros++;
+        System.out.printf("%d,%d erro Lexico: %s \n",Linha,Coluna,Msg);
+        verificaMaxErros();
     }
     
     public void erroSintatico(String Mensagem){
         QuantidadeErros++;
-        System.out.printf("erro sintático: %s \n",Mensagem);
+        System.out.printf("erro sintÃ¡tico: %s \n",Mensagem);
         verificaMaxErros();
     }
-    
+
     public void erroSintatico(RegistroLexico Prox, TipoToken Esperado){
         QuantidadeErros++;
-        System.out.printf("erro sintático: Recebido %s, Esperado %s \n",Prox,Esperado);
+        System.out.printf("erro sintÃ¡tico: Recebido %s, Esperado %s \n",Prox,Esperado);
         verificaMaxErros();
     }
     
     private void verificaMaxErros(){
         if(QuantidadeErros >= MAX_ERROS){
             relatorioErros();
-            System.out.println(" Muitos erros no código, compilação interrompida.");
+            System.out.println(" Muitos erros no cÃ³digo, compilaÃ§Ã£o interrompida.");
             System.exit(1);
         }
     }
@@ -59,6 +67,5 @@ public class TratamentoErros {
         else
             System.out.printf("%d erro encontrado.\n",QuantidadeErros);
     }
-    
     
 }

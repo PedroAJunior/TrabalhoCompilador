@@ -3,30 +3,31 @@ programa preenche um vetor de inteiros, chama uma função
 que acha o maior valor de um vetor, e depois imprime o
 maior valor. ##
 principal Maior:
-variaveis
-inteiro Vet[10];
-inteiro Maior, i;
-fim_variaveis;
-# Ler dados do teclado
-para i de 0 ate 9 passo 1 faca
-saida("\n Digite o numero %d : ", i);
-entrada(Vet[i]);
-fim_para;
-# Chama a função para achar o Maior
-Maior := achaMaior(Vet);
-# Imprime o maior valor
-saida("\n Maior: %d ", Maior);
+ variaveis
+ inteiro Vet[10];
+ inteiro Maior, i;
+ fim_variaveis;
+ # Ler dados do teclado
+ para i de 0 ate 9 passo 1 faca
+ saida("\n Digite o numero %d : ", i);
+ entrada(Vet[i]);
+ fim_para;
+ # Chama a função para achar o Maior
+ Maior := achaMaior(Vet);
+ # Imprime o maior valor
+ saida("\n Maior: %d ", Maior);
 fim;
 # Função para achar o maior
 inteiro funcao achaMaior(inteiro[] V):
-variaveis
-inteiro Maior, i;
-fim_variaveis;
-Maior := V[0];
-para i de 1 ate 9 passo 1 faca
-se V[i] > Maior entao
-Maior := V[i];
-fim_se;
-fim_para;
-retornar Maior;
-fim_funcao;
+ variaveis
+ inteiro Maior, i;
+ fim_variaveis;
+ Maior := V[0];
+ para i de 1 ate 9 passo 1 faca
+ se V[i] > Maior entao
+ Maior := V[i];
+ fim_se;
+ fim_para;
+
+ retornar Maior;
+fim_funcao; 

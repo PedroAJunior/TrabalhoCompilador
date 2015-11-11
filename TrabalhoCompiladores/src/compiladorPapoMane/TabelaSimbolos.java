@@ -45,7 +45,7 @@ public class TabelaSimbolos {
         Reg = new RegistroLexico();
         Reg.setToken(TipoToken.INTEIRO);
         Reg.setLexema("inteiro");
-        hsmTabela.put("bool", Reg);
+        hsmTabela.put("inteiro", Reg);
 
         Reg = new RegistroLexico();
         Reg.setToken(TipoToken.REAL);
@@ -134,28 +134,28 @@ public class TabelaSimbolos {
         
         Reg = new RegistroLexico();
         Reg.setToken(TipoToken.DE);
-        Reg.setLexema("fim_para");
-        hsmTabela.put("fim_para", Reg);
+        Reg.setLexema("de");
+        hsmTabela.put("de", Reg);
         
         Reg = new RegistroLexico();
         Reg.setToken(TipoToken.ATE);
-        Reg.setLexema("fim_para");
-        hsmTabela.put("fim_para", Reg);
+        Reg.setLexema("ate");
+        hsmTabela.put("ate", Reg);
         
         Reg = new RegistroLexico();
         Reg.setToken(TipoToken.PASSO);
-        Reg.setLexema("fim_para");
-        hsmTabela.put("fim_para", Reg);
+        Reg.setLexema("passo");
+        hsmTabela.put("passo", Reg);
         
         Reg = new RegistroLexico();
         Reg.setToken(TipoToken.FACA);
-        Reg.setLexema("fim_para");
-        hsmTabela.put("fim_para", Reg);
+        Reg.setLexema("faca");
+        hsmTabela.put("faca", Reg);
         
         Reg = new RegistroLexico();
         Reg.setToken(TipoToken.FUNCAO);
-        Reg.setLexema("fim_para");
-        hsmTabela.put("fim_para", Reg);
+        Reg.setLexema("funcao");
+        hsmTabela.put("funcao", Reg);
         
         
         Reg = new RegistroLexico();

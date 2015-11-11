@@ -12,23 +12,23 @@ import java.io.IOException;
  * @author henrique
  */
 public class AnalisadorSintatico {
-
+    
     private AnalisadorLexico anLex;
     private TabelaSimbolos tabelaSimbolos;
-
+    
     private RegistroLexico prox;
-
+    
     public AnalisadorSintatico() {
         anLex = new AnalisadorLexico();
         tabelaSimbolos = new TabelaSimbolos();
-
+        
         anLex.setTabelaSimbolos(tabelaSimbolos);
     }
-
+    
     public void setArquivoFonte(String code) throws IOException {
         anLex.setArquivoFonte(code);
     }
-
+    
     public void casaToken(TipoToken Esperado) {
         if (prox.getToken() == Esperado) {
             //OK
@@ -39,7 +39,7 @@ public class AnalisadorSintatico {
             TratamentoErros.getInstancia().erroSintatico(prox, Esperado);
         }
     }
-
+    
     public void parse() {
         prox = anLex.obterProx();
         TratamentoErros.getInstancia().zerarErros();
@@ -48,43 +48,43 @@ public class AnalisadorSintatico {
         //exp1();
         //expSimples();
         start();
-
+        
         if (prox.getToken() != TipoToken.FIM_DE_ARQUIVO) {
             TratamentoErros.getInstancia().erroSintatico("a gramática terminou mas o arquivo não.");
         }
-
+        
         if (TratamentoErros.getInstancia().getQuantidadeErros() == 0) {
             System.out.println("Compilação terminada com sucesso.");
         } else {
             TratamentoErros.getInstancia().relatorioErros();
         }
     }
-    
+
     /*
-    <constante> -> num | const_char | const_str | const_logica
-    */
-   private void constante() {
-       if (prox.getToken() == TipoToken.NUM) {
-           casaToken(TipoToken.NUM);
-       } else if (prox.getToken() == TipoToken.CONST_CHAR) {
-           casaToken(TipoToken.CONST_CHAR);
-       } else if (prox.getToken() == TipoToken.CONST_STR) {
-           casaToken(TipoToken.CONST_STR);
-       } else if (prox.getToken() == TipoToken.CONST_LOGICA) {
-           casaToken(TipoToken.CONST_LOGICA);
-       } else {
-           TratamentoErros.getInstancia().erroSintatico("<constante> era esperado NUM, CHAR ou BOOLEANO neste ponto da gramática, mas recebido " + prox);
-       }
-   }
-   
-   private boolean isConstante(){
-       return prox.getToken() == TipoToken.NUM
-           || prox.getToken() == TipoToken.CONST_CHAR
-           || prox.getToken() == TipoToken.CONST_STR
-           || prox.getToken() == TipoToken.CONST_LOGICA;
-   }
-   
-   /*
+     <constante> -> num | const_char | const_str | const_logica
+     */
+    private void constante() {
+        if (prox.getToken() == TipoToken.NUM) {
+            casaToken(TipoToken.NUM);
+        } else if (prox.getToken() == TipoToken.CONST_CHAR) {
+            casaToken(TipoToken.CONST_CHAR);
+        } else if (prox.getToken() == TipoToken.CONST_STR) {
+            casaToken(TipoToken.CONST_STR);
+        } else if (prox.getToken() == TipoToken.CONST_LOGICA) {
+            casaToken(TipoToken.CONST_LOGICA);
+        } else {
+            TratamentoErros.getInstancia().erroSintatico("<constante> era esperado NUM, CHAR ou BOOLEANO neste ponto da gramática, mas recebido " + prox);
+        }
+    }
+    
+    private boolean isConstante() {
+        return prox.getToken() == TipoToken.NUM
+                || prox.getToken() == TipoToken.CONST_CHAR
+                || prox.getToken() == TipoToken.CONST_STR
+                || prox.getToken() == TipoToken.CONST_LOGICA;
+    }
+
+    /*
      <tipo> -> inteiro | real | caractere | sequencia | logico
      */
     private void tipo() {
@@ -103,14 +103,14 @@ public class AnalisadorSintatico {
         }
     }
     
-    private boolean isTipo(){
+    private boolean isTipo() {
         return prox.getToken() == TipoToken.INTEIRO
-            || prox.getToken() == TipoToken.REAL
-            || prox.getToken() == TipoToken.CARACTERE
-            || prox.getToken() == TipoToken.SEQUENCIA
-            || prox.getToken() == TipoToken.LOGICO;
+                || prox.getToken() == TipoToken.REAL
+                || prox.getToken() == TipoToken.CARACTERE
+                || prox.getToken() == TipoToken.SEQUENCIA
+                || prox.getToken() == TipoToken.LOGICO;
     }
-    
+
     /*
      <tipo-func> -> <tipo> [ ac fc ]
      */
@@ -121,7 +121,7 @@ public class AnalisadorSintatico {
             casaToken(TipoToken.FECHA_COLCHETES);
         }
     }
-    
+
     /*
      <dec-vetor> -> [ ac num fc ]
      */
@@ -132,22 +132,22 @@ public class AnalisadorSintatico {
             casaToken(TipoToken.FECHA_COLCHETES);
         }
     }
-    
-     /*
-    <dec> -> <tipo> id <dec-vetor> {, id <dec-vetor> };
-    */
+
+    /*
+     <dec> -> <tipo> id <dec-vetor> {, id <dec-vetor> };
+     */
     private void dec() {
         tipo();
         casaToken(TipoToken.ID);
         decVetor();
-        while(prox.getToken() == TipoToken.VIRGULA){
+        while (prox.getToken() == TipoToken.VIRGULA) {
             casaToken(TipoToken.VIRGULA);
             casaToken(TipoToken.ID);
             decVetor();
         }
         casaToken(TipoToken.PONTO_E_VIRGULA);
     }
-    
+
     /*
      <pars> -> [ <tipo-func> id {, <tipo-func> id } ]
      */
@@ -161,28 +161,29 @@ public class AnalisadorSintatico {
                 casaToken(TipoToken.ID);
             }
         }
-
+        
     }
-    
+
     /*
      <variaveis> -> variaveis { <dec> } fim_variaveis;
      */
     private void variaveis() {
         casaToken(TipoToken.VARIAVEIS);
-        while(isTipo()){
+        while (isTipo()) {
             dec();
         }
         casaToken(TipoToken.FIM_VARIAVEIS);
+        casaToken(TipoToken.PONTO_E_VIRGULA);
     }
-   
+
     /*
      <funcao> -> [<tipo-func> | sem_tipo] funcao id ap <pars> fp :
      <variaveis> <bloco> fim_funcao;
      */
     private void funcao() {
-        if(isTipo()){
+        if (isTipo()) {
             tipoFunc();
-        } else if(prox.getToken() == TipoToken.SEM_TIPO){
+        } else if (prox.getToken() == TipoToken.SEM_TIPO) {
             casaToken(TipoToken.SEM_TIPO);
         }
         casaToken(TipoToken.FUNCAO);
@@ -194,153 +195,153 @@ public class AnalisadorSintatico {
         variaveis();
         bloco();
         casaToken(TipoToken.FIM_FUNCAO);
+        casaToken(TipoToken.PONTO_E_VIRGULA);
     }
     
-    public boolean isFuncao(){
+    public boolean isFuncao() {
         return isTipo() || prox.getToken() == TipoToken.SEM_TIPO || prox.getToken() == TipoToken.FUNCAO;
     }
-    
+
     /*
      <dec-funcoes> -> { <funcao> }
      */
     private void decFuncoes() {
-        while(isFuncao()){
+        while (isFuncao()) {
             funcao();
         }
     }
-    
+
     /*
-    <chamada-funcao> -> [ ap [ <exp> {, <exp> } ] fp | ac <exp> fc ]
-    */
+     <chamada-funcao> -> [ ap [ <exp> {, <exp> } ] fp | ac <exp> fc ]
+     */
     private void chamadaFuncao() {
-        if(prox.getToken() == TipoToken.ABRE_PARENTESES){
+        if (prox.getToken() == TipoToken.ABRE_PARENTESES) {
             casaToken(TipoToken.ABRE_PARENTESES);
-            if(prox.getToken() == TipoToken.ID){
+            if (prox.getToken() == TipoToken.ID) {
                 exp();
-                while (prox.getToken() == TipoToken.VIRGULA){
+                while (prox.getToken() == TipoToken.VIRGULA) {
                     casaToken(TipoToken.VIRGULA);
                     exp();
                 }
             }
             casaToken(TipoToken.FECHA_PARENTESES);
-        } else if(prox.getToken() == TipoToken.ABRE_COLCHETES){
+        } else if (prox.getToken() == TipoToken.ABRE_COLCHETES) {
             casaToken(TipoToken.ABRE_COLCHETES);
             exp();
             casaToken(TipoToken.FECHA_COLCHETES);
-        } else{
-            // TODO tratamento de erros
         }
     }
-    
+
     /*
-    <fator> -> id <chamada-funcao> | <constante> | op_not <fator> | ap <exp> fp
-    */
+     <fator> -> id <chamada-funcao> | <constante> | op_not <fator> | ap <exp> fp
+     */
     private void fator() {
-        if(prox.getToken() == TipoToken.ID){
+        if (prox.getToken() == TipoToken.ID) {
             casaToken(TipoToken.ID);
             chamadaFuncao();
-        } else if(isConstante()){
+        } else if (isConstante()) {
             constante();
-        } else if(prox.getToken() == TipoToken.OP_NOT){
+        } else if (prox.getToken() == TipoToken.OP_NOT) {
             casaToken(TipoToken.OP_NOT);
             fator();
-        } else if(prox.getToken() == TipoToken.ABRE_PARENTESES){
+        } else if (prox.getToken() == TipoToken.ABRE_PARENTESES) {
             casaToken(TipoToken.ABRE_PARENTESES);
             exp();
             casaToken(TipoToken.FECHA_PARENTESES);
-        } else{
-             // TODO tratamento de erros
+        } else {
+            TratamentoErros.getInstancia().erroSintatico("<fator> era esperado ID, OP_NOT ou ABRE_PARENTESES neste ponto da gramática, mas recebido " + prox);
         }
     }
     
-    private boolean isFator(){
+    private boolean isFator() {
         return prox.getToken() == TipoToken.ID
-            || isConstante()
-            || prox.getToken() == TipoToken.OP_NOT
-            || prox.getToken() == TipoToken.ABRE_PARENTESES;
+                || isConstante()
+                || prox.getToken() == TipoToken.OP_NOT
+                || prox.getToken() == TipoToken.ABRE_PARENTESES;
     }
     /*
-    <termo> -> <fator> { op_mul <fator> }
-    */
+     <termo> -> <fator> { op_mul <fator> }
+     */
+    
     private void termo() {
         fator();
-        while(prox.getToken() == TipoToken.OP_MUL){
+        while (prox.getToken() == TipoToken.OP_MUL) {
             casaToken(TipoToken.OP_MUL);
             fator();
         }
     }
-    
+
     /*
-    <exp-simples> -> <termo> { op_add <termo> }
-    */
+     <exp-simples> -> <termo> { op_add <termo> }
+     */
     private void expSimples() {
         termo();
-        while(prox.getToken() == TipoToken.OP_ADD){
+        while (prox.getToken() == TipoToken.OP_ADD) {
             casaToken(TipoToken.OP_ADD);
             termo();
         }
     }
-    
+
     /*
-    <exp> -> <exp-simples> [ op_rel <exp-simples> ]
-    */
+     <exp> -> <exp-simples> [ op_rel <exp-simples> ]
+     */
     private void exp() {
         expSimples();
-        while(prox.getToken() == TipoToken.OP_REL){
+        while (prox.getToken() == TipoToken.OP_REL) {
             casaToken(TipoToken.OP_REL);
             expSimples();
         }
     }
-    
+
     /*
-    <procedimento> -> ap [ <exp> {, <exp> } ] fp
-    */
+     <procedimento> -> ap [ <exp> {, <exp> } ] fp
+     */
     private void procedimento() {
         casaToken(TipoToken.ABRE_PARENTESES);
-            if(isFator()){
+        if (isFator()) {
+            exp();
+            while (prox.getToken() == TipoToken.VIRGULA) {
+                casaToken(TipoToken.VIRGULA);
                 exp();
-                while(prox.getToken() == TipoToken.VIRGULA){
-                    casaToken(TipoToken.VIRGULA);
-                    exp();
-                }
             }
+        }
         casaToken(TipoToken.FECHA_PARENTESES);
     }
-    
+
     /*
-    <atribuicao> -> [ ac <exp> fc ] op_atrib <exp>
-    */
+     <atribuicao> -> [ ac <exp> fc ] op_atrib <exp>
+     */
     private void atribuicao() {
-           if(prox.getToken() == TipoToken.ABRE_COLCHETES){
-                casaToken(TipoToken.ABRE_COLCHETES);
-                exp();
-                casaToken(TipoToken.FECHA_COLCHETES);
-           }
-           casaToken(TipoToken.OP_ATRIB);
-           exp();
+        if (prox.getToken() == TipoToken.ABRE_COLCHETES) {
+            casaToken(TipoToken.ABRE_COLCHETES);
+            exp();
+            casaToken(TipoToken.FECHA_COLCHETES);
+        }
+        casaToken(TipoToken.OP_ATRIB);
+        exp();
     }
     
-    private boolean isAtribuicao(){
+    private boolean isAtribuicao() {
         return prox.getToken() == TipoToken.ABRE_COLCHETES
                 || prox.getToken() == TipoToken.ABRE_COLCHETES;
     }
-    
+
     /*
-    <atrib_proc> -> id ( <atribuicao> | <procedimento> ) ;
-    */
+     <atrib_proc> -> id ( <atribuicao> | <procedimento> ) ;
+     */
     private void atribProc() {
-           casaToken(TipoToken.ID);
-           if(isAtribuicao()){
-               atribuicao();
-           } else if(prox.getToken() == TipoToken.ABRE_PARENTESES){
-               procedimento();
-           } else {
-               // TODO tratamento de erros
-           }
-           casaToken(TipoToken.PONTO_E_VIRGULA);
-           
+        casaToken(TipoToken.ID);
+        if (isAtribuicao()) {
+            atribuicao();
+        } else if (prox.getToken() == TipoToken.ABRE_PARENTESES) {
+            procedimento();
+        } else {
+            TratamentoErros.getInstancia().erroSintatico("<atrib_proc> era esperado ABRE_COLCHETES ou ABRE_PARENTESES neste ponto da gramática, mas recebido " + prox);
+        }
+        casaToken(TipoToken.PONTO_E_VIRGULA);
+        
     }
-    
+
     /*
      <saida> -> saida ap <exp> {, <exp> } fp ;
      */
@@ -355,15 +356,15 @@ public class AnalisadorSintatico {
         casaToken(TipoToken.FECHA_PARENTESES);
         casaToken(TipoToken.PONTO_E_VIRGULA);
     }
-    
+
     /*
-    <entrada> -> entrada ap id [ ac <exp> fc ] fp;
-    */
+     <entrada> -> entrada ap id [ ac <exp> fc ] fp;
+     */
     private void entrada() {
         casaToken(TipoToken.ENTRADA);
         casaToken(TipoToken.ABRE_PARENTESES);
         casaToken(TipoToken.ID);
-        if(prox.getToken() == TipoToken.ABRE_COLCHETES){
+        if (prox.getToken() == TipoToken.ABRE_COLCHETES) {
             casaToken(TipoToken.ABRE_COLCHETES);
             exp();
             casaToken(TipoToken.FECHA_COLCHETES);
@@ -371,10 +372,10 @@ public class AnalisadorSintatico {
         casaToken(TipoToken.FECHA_PARENTESES);
         casaToken(TipoToken.PONTO_E_VIRGULA);
     }
-    
+
     /*
-    <enquanto> -> enquanto <exp> faca <bloco> fim_enquanto;
-    */
+     <enquanto> -> enquanto <exp> faca <bloco> fim_enquanto;
+     */
     private void enquanto() {
         casaToken(TipoToken.ENQUANTO);
         exp();
@@ -383,7 +384,7 @@ public class AnalisadorSintatico {
         casaToken(TipoToken.FIM_ENQUANTO);
         casaToken(TipoToken.PONTO_E_VIRGULA);
     }
-    
+
     /*
      <para> -> para id de <exp> ate <exp> [passo <exp>]
      faca <bloco> fim_para;
@@ -404,18 +405,18 @@ public class AnalisadorSintatico {
         casaToken(TipoToken.FIM_PARA);
         casaToken(TipoToken.PONTO_E_VIRGULA);
     }
-    
+
     /*
      <retorno> -> retornar [ <exp> ] ;
      */
     private void retorno() {
         casaToken(TipoToken.RETORNAR);
-        if(isFator()){
+        if (isFator()) {
             exp();
         }
         casaToken(TipoToken.PONTO_E_VIRGULA);
     }
-    
+
     /*
      <se> -> se <exp> entao <bloco> { senao_se <exp> entao <bloco> } [ senao <bloco> ] fim_se;
     
@@ -425,63 +426,64 @@ public class AnalisadorSintatico {
         exp();
         casaToken(TipoToken.ENTAO);
         bloco();
-        while(prox.getToken() == TipoToken.SENAO_SE){
+        while (prox.getToken() == TipoToken.SENAO_SE) {
             casaToken(TipoToken.SENAO_SE);
             exp();
             casaToken(TipoToken.ENTAO);
             bloco();
         }
-        if(prox.getToken() == TipoToken.SENAO){
+        if (prox.getToken() == TipoToken.SENAO) {
             casaToken(TipoToken.SENAO);
         }
         casaToken(TipoToken.FIM_SE);
         casaToken(TipoToken.PONTO_E_VIRGULA);
     }
-    
+
     /*
      <comando> -> <se> | <enquanto> | <para> | <retorno> | <entrada> | <saida> | <atrib_proc>
      */
     private void comando() {
-        if(prox.getToken() == TipoToken.SENAO){
+        if (prox.getToken() == TipoToken.SENAO) {
             se();
-        } else if(prox.getToken() == TipoToken.ENQUANTO){
+        } else if (prox.getToken() == TipoToken.ENQUANTO) {
             enquanto();
-        } else if(prox.getToken() == TipoToken.PARA){
+        } else if (prox.getToken() == TipoToken.PARA) {
             para();
-        }else if(prox.getToken() == TipoToken.RETORNAR){
+        } else if (prox.getToken() == TipoToken.RETORNAR) {
             retorno();
-        }else if(prox.getToken() == TipoToken.ENTRADA){
+        } else if (prox.getToken() == TipoToken.ENTRADA) {
             entrada();
-        }else if(prox.getToken() == TipoToken.SAIDA){
+        } else if (prox.getToken() == TipoToken.SAIDA) {
             saida();
-        }else if(prox.getToken() == TipoToken.ID){
+        } else if (prox.getToken() == TipoToken.ID) {
             atribProc();
-        } else{
-            // TODO tratamento de erros
+        } else {
+            TratamentoErros.getInstancia().erroSintatico("<comando> era esperado SENAO, ENQUANTO, PARA, RETORNAR, ENTRADA, SAIDA ou ID neste ponto da gramática, mas recebido " + prox);
         }
     }
     
-    private boolean isComando(){
-        return prox.getToken() == TipoToken.SENAO
-            || prox.getToken() == TipoToken.ENQUANTO
-            || prox.getToken() == TipoToken.PARA
-            || prox.getToken() == TipoToken.RETORNAR
-            || prox.getToken() == TipoToken.ENTRADA  
-            || prox.getToken() == TipoToken.SAIDA
-            || prox.getToken() == TipoToken.ID;        
+    //<comando> -> <se> | <enquanto> | <para> | <retorno> | <entrada>| <saida> | <atrib_proc>
+    private boolean isComando() {
+        return prox.getToken() == TipoToken.SE
+                || prox.getToken() == TipoToken.ENQUANTO
+                || prox.getToken() == TipoToken.PARA
+                || prox.getToken() == TipoToken.RETORNAR
+                || prox.getToken() == TipoToken.ENTRADA
+                || prox.getToken() == TipoToken.SAIDA
+                || prox.getToken() == TipoToken.ID;
     }
-    
+
     /*
-    <bloco> -> { <comando> }
+     <bloco> -> { <comando> }
      */
     private void bloco() {
-        while(isComando()){
+        while (isComando()) {
             comando();
         }
     }
-    
+
     /*
-    <start> -> principal id : <variaveis> <bloco> fim; <dec-funcoes>
+     <start> -> principal id : <variaveis> <bloco> fim; <dec-funcoes>
      */
     private void start() {
         casaToken(TipoToken.PRINCIPAL);

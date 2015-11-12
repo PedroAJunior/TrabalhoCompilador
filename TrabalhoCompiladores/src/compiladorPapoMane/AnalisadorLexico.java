@@ -180,6 +180,8 @@ public class AnalisadorLexico {
                     regLex.setToken(TipoToken.ABRE_COLCHETES);
                     regLex.setLexema(lexema);
                     regLex.setTipoVar(TipoVar.SEM_TIPO);
+                    regLex.setColuna(coluna);
+                    regLex.setLinha(linha);
                     return regLex;
 					
                 case 3:
@@ -187,6 +189,8 @@ public class AnalisadorLexico {
                     regLex.setToken(TipoToken.FECHA_COLCHETES);
                     regLex.setLexema(lexema);
                     regLex.setTipoVar(TipoVar.SEM_TIPO);
+                    regLex.setColuna(coluna);
+                    regLex.setLinha(linha);
                     return regLex;
 					
                 case 4:
@@ -213,6 +217,8 @@ public class AnalisadorLexico {
                     regLex.setToken(TipoToken.CONST_STR);
                     regLex.setLexema(lexema);
                     regLex.setTipoVar(TipoVar.STRING);
+                    regLex.setColuna(coluna);
+                    regLex.setLinha(linha);
                     return regLex;
 					
                 case 6:
@@ -220,6 +226,8 @@ public class AnalisadorLexico {
                     regLex.setToken(TipoToken.ABRE_PARENTESES);
                     regLex.setLexema(lexema);
                     regLex.setTipoVar(TipoVar.SEM_TIPO);
+                    regLex.setColuna(coluna);
+                    regLex.setLinha(linha);
                     return regLex;
 					
                 case 7:
@@ -227,6 +235,8 @@ public class AnalisadorLexico {
                     regLex.setToken(TipoToken.FECHA_PARENTESES);
                     regLex.setLexema(lexema);
                     regLex.setTipoVar(TipoVar.SEM_TIPO);
+                    regLex.setColuna(coluna);
+                    regLex.setLinha(linha);
                     return regLex;
 					
                 case 8:
@@ -234,6 +244,8 @@ public class AnalisadorLexico {
                     regLex.setToken(TipoToken.VIRGULA);
                     regLex.setLexema(lexema);
                     regLex.setTipoVar(TipoVar.SEM_TIPO);
+                    regLex.setColuna(coluna);
+                    regLex.setLinha(linha);
                     return regLex;
 					
                 case 9: 
@@ -298,6 +310,8 @@ public class AnalisadorLexico {
                     regLex.setToken(TipoToken.PONTO_E_VIRGULA);
                     regLex.setLexema(lexema);
                     regLex.setTipoVar(TipoVar.SEM_TIPO);
+                    regLex.setColuna(coluna);
+                    regLex.setLinha(linha);
                     return regLex;	
 					
 		case 16:
@@ -314,6 +328,8 @@ public class AnalisadorLexico {
                     regLex.setToken(TipoToken.OP_ATRIB);
                     regLex.setLexema(lexema);
                     regLex.setTipoVar(TipoVar.SEM_TIPO);
+                    regLex.setColuna(coluna);
+                    regLex.setLinha(linha);
                     return regLex;
 					
 		case 18:
@@ -339,6 +355,8 @@ public class AnalisadorLexico {
                     regLex.setToken(TipoToken.OP_NOT);
                     regLex.setLexema(lexema);
                     regLex.setTipoVar(TipoVar.SEM_TIPO);
+                    regLex.setColuna(coluna);
+                    regLex.setLinha(linha);
                     return regLex;
 				
 		case 21:
@@ -385,6 +403,8 @@ public class AnalisadorLexico {
                     regLex.setToken(TipoToken.NUM);
                     regLex.setLexema(lexema);
                     regLex.setTipoVar(TipoVar.REAL);
+                    regLex.setColuna(coluna);
+                    regLex.setLinha(linha);
                     return regLex;
 				
 		case 25:
@@ -394,6 +414,8 @@ public class AnalisadorLexico {
                     regLex.setToken(TipoToken.NUM);
                     regLex.setLexema(lexema);
                     regLex.setTipoVar(TipoVar.INTEIRO);
+                    regLex.setColuna(coluna);
+                    regLex.setLinha(linha);
                     return regLex;	
 				
 		case 26:
@@ -419,6 +441,8 @@ public class AnalisadorLexico {
                     regLex.setToken(TipoToken.CONST_CHAR);
                     regLex.setLexema(lexema);
                     regLex.setTipoVar(TipoVar.CARACTERE);
+                    regLex.setColuna(coluna);
+                    regLex.setLinha(linha);
                     return regLex;
 				
 		case 29:
@@ -435,6 +459,8 @@ public class AnalisadorLexico {
                     regLex.setToken(TipoToken.OP_REL);
                     regLex.setLexema(lexema);
                     regLex.setTipoVar(TipoVar.SEM_TIPO);
+                    regLex.setColuna(coluna);
+                    regLex.setLinha(linha);
                     return regLex;	
 				
                 case 31:
@@ -453,6 +479,8 @@ public class AnalisadorLexico {
                     regLex.setToken(TipoToken.OP_REL);
                     regLex.setLexema(lexema);
                     regLex.setTipoVar(TipoVar.SEM_TIPO);
+                    regLex.setColuna(coluna);
+                    regLex.setLinha(linha);
                     return regLex;	
 			
 		case 33:
@@ -460,6 +488,8 @@ public class AnalisadorLexico {
                     regLex.setToken(TipoToken.OP_REL);
                     regLex.setLexema(lexema);
                     regLex.setTipoVar(TipoVar.SEM_TIPO);
+                    regLex.setColuna(coluna);
+                    regLex.setLinha(linha);
                     return regLex;
                             
 		case 34:
@@ -467,6 +497,8 @@ public class AnalisadorLexico {
                     regLex.setToken(TipoToken.OP_MUL);
                     regLex.setLexema(lexema);
                     regLex.setTipoVar(TipoVar.SEM_TIPO);
+                    regLex.setColuna(coluna);
+                    regLex.setLinha(linha);
                     return regLex;	
 				
 		case 35:
@@ -474,6 +506,8 @@ public class AnalisadorLexico {
                     regLex.setToken(TipoToken.OP_ADD);
                     regLex.setLexema(lexema);
                     regLex.setTipoVar(TipoVar.SEM_TIPO);
+                    regLex.setColuna(coluna);
+                    regLex.setLinha(linha);
                     return regLex;	
 				
 		case 36:
@@ -483,6 +517,8 @@ public class AnalisadorLexico {
                     regLex.setToken(TipoToken.DOIS_PONTOS);
                     regLex.setLexema(lexema);
                     regLex.setTipoVar(TipoVar.SEM_TIPO);
+                    regLex.setColuna(coluna);
+                    regLex.setLinha(linha);
                     return regLex;	
             }
         }

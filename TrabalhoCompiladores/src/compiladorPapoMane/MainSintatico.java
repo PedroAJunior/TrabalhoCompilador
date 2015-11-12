@@ -24,7 +24,7 @@ public class MainSintatico {
             
             Parser.setArquivoFonte(code);
             Parser.parse();
-            
+
         } catch (IOException ex) {
             System.out.println(ex);
         }

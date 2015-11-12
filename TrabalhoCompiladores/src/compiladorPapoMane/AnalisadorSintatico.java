@@ -73,7 +73,7 @@ public class AnalisadorSintatico {
         } else if (prox.getToken() == TipoToken.CONST_LOGICA) {
             casaToken(TipoToken.CONST_LOGICA);
         } else {
-            TratamentoErros.getInstancia().erroSintatico("<constante> era esperado NUM, CHAR ou BOOLEANO neste ponto da gramática, mas recebido " + prox);
+            TratamentoErros.getInstancia().erroSintatico("Linha: "+prox.getLinha()+", Coluna: "+prox.getColuna()+" - <constante> era esperado NUM, CHAR ou BOOLEANO neste ponto da gramática, mas recebido " + prox);
         }
     }
     
@@ -99,7 +99,7 @@ public class AnalisadorSintatico {
         } else if (prox.getToken() == TipoToken.LOGICO) {
             casaToken(TipoToken.LOGICO);
         } else {
-            TratamentoErros.getInstancia().erroSintatico("<tipo> era esperado INTEIRO, REAL, CARACTERE, SEQUENCIA ou LOGICO neste ponto da gramática, mas recebido " + prox);
+            TratamentoErros.getInstancia().erroSintatico("Linha: "+prox.getLinha()+", Coluna: "+prox.getColuna()+" - <tipo> era esperado INTEIRO, REAL, CARACTERE, SEQUENCIA ou LOGICO neste ponto da gramática, mas recebido " + prox);
         }
     }
     
@@ -249,7 +249,7 @@ public class AnalisadorSintatico {
             exp();
             casaToken(TipoToken.FECHA_PARENTESES);
         } else {
-            TratamentoErros.getInstancia().erroSintatico("<fator> era esperado ID, OP_NOT ou ABRE_PARENTESES neste ponto da gramática, mas recebido " + prox);
+            TratamentoErros.getInstancia().erroSintatico("Linha: "+prox.getLinha()+", Coluna: "+prox.getColuna()+" - <fator> era esperado ID, OP_NOT ou ABRE_PARENTESES neste ponto da gramática, mas recebido " + prox);
         }
     }
     
@@ -323,7 +323,7 @@ public class AnalisadorSintatico {
     
     private boolean isAtribuicao() {
         return prox.getToken() == TipoToken.ABRE_COLCHETES
-                || prox.getToken() == TipoToken.ABRE_COLCHETES;
+                || prox.getToken() == TipoToken.OP_ATRIB;
     }
 
     /*
@@ -336,7 +336,7 @@ public class AnalisadorSintatico {
         } else if (prox.getToken() == TipoToken.ABRE_PARENTESES) {
             procedimento();
         } else {
-            TratamentoErros.getInstancia().erroSintatico("<atrib_proc> era esperado ABRE_COLCHETES ou ABRE_PARENTESES neste ponto da gramática, mas recebido " + prox);
+            TratamentoErros.getInstancia().erroSintatico("Linha: "+prox.getLinha()+" Coluna: "+prox.getColuna()+" - <atrib_proc> era esperado ABRE_COLCHETES ou ABRE_PARENTESES neste ponto da gramática, mas recebido " + prox);
         }
         casaToken(TipoToken.PONTO_E_VIRGULA);
         
@@ -443,7 +443,7 @@ public class AnalisadorSintatico {
      <comando> -> <se> | <enquanto> | <para> | <retorno> | <entrada> | <saida> | <atrib_proc>
      */
     private void comando() {
-        if (prox.getToken() == TipoToken.SENAO) {
+        if (prox.getToken() == TipoToken.SE) {
             se();
         } else if (prox.getToken() == TipoToken.ENQUANTO) {
             enquanto();
@@ -458,7 +458,7 @@ public class AnalisadorSintatico {
         } else if (prox.getToken() == TipoToken.ID) {
             atribProc();
         } else {
-            TratamentoErros.getInstancia().erroSintatico("<comando> era esperado SENAO, ENQUANTO, PARA, RETORNAR, ENTRADA, SAIDA ou ID neste ponto da gramática, mas recebido " + prox);
+            TratamentoErros.getInstancia().erroSintatico("Linha: "+prox.getLinha()+", Coluna: "+prox.getColuna()+" - <comando> era esperado SENAO, ENQUANTO, PARA, RETORNAR, ENTRADA, SAIDA ou ID neste ponto da gramática, mas recebido " + prox);
         }
     }
     

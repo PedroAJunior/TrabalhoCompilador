@@ -37,7 +37,7 @@ public class TratamentoErros {
 
     public void erroLexico(int Linha, int Coluna, String Msg){
         QuantidadeErros++;
-        System.out.printf("%d,%d erro Lexico: %s \n",Linha,Coluna,Msg);
+        System.out.printf("Linha: %d,Coluna: %d - erro Lexico: %s \n",Linha,Coluna,Msg);
         verificaMaxErros();
     }
     
@@ -49,7 +49,7 @@ public class TratamentoErros {
 
     public void erroSintatico(RegistroLexico Prox, TipoToken Esperado){
         QuantidadeErros++;
-        System.out.printf("erro sintático: Recebido %s, Esperado %s \n",Prox,Esperado);
+        System.out.printf("Linha: "+Prox.getLinha()+", Coluna: "+Prox.getColuna()+" - erro sintático: Recebido %s, Esperado %s \n",Prox,Esperado);
         verificaMaxErros();
     }
     

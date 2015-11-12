@@ -38,7 +38,7 @@ public class TratamentoErros {
     public void erroLexico(int Linha, int Coluna, String Msg){
         QuantidadeErros++;
         //System.out.printf("Linha: %d,Coluna: %d - erro Lexico: %s \n",Linha,Coluna,Msg);
-        System.err.printf("[ERRO]<erro léxico> %d: linha: %d, Coluna %s\n",Linha,Coluna,Msg);
+        System.err.printf("[ERRO]<erro léxico> %s: linha: %d, Coluna %d\n",Msg,Linha,Coluna);
         verificaMaxErros();
     }
     

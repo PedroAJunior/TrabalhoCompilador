@@ -171,7 +171,7 @@ public class AnalisadorLexico {
 			lexema += c;
                     }else{
                         //Erro Léxico.
-			TratamentoErros.getInstancia().erroLexico(linha, coluna, "caractere não reconhecido pela linguagem: "+c);
+			TratamentoErros.getInstancia().erroLexico(linha, coluna, "caractere não reconhecido pela linguagem: ("+c+")");
                     }
                     break;
 					

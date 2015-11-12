@@ -32,7 +32,7 @@ public class AnalisadorSintatico {
     public void casaToken(TipoToken Esperado) {
         if (prox.getToken() == Esperado) {
             //OK
-            System.out.printf("     casaToken(%s) \n", prox); //debug
+            System.out.printf("[INFO]casaToken(%s) \n", prox); //debug
             prox = anLex.obterProx();
         } else {
             //erro sintatico
@@ -50,11 +50,11 @@ public class AnalisadorSintatico {
         start();
         
         if (prox.getToken() != TipoToken.FIM_DE_ARQUIVO) {
-            TratamentoErros.getInstancia().erroSintatico("a gramática terminou mas o arquivo não.");
+            TratamentoErros.getInstancia().erroSintatico("[ERRO]a gramática terminou mas o arquivo não.");
         }
         
         if (TratamentoErros.getInstancia().getQuantidadeErros() == 0) {
-            System.out.println("Compilação terminada com sucesso.");
+            System.out.println("[FINISH]Compilação terminada com sucesso.");
         } else {
             TratamentoErros.getInstancia().relatorioErros();
         }
@@ -73,7 +73,7 @@ public class AnalisadorSintatico {
         } else if (prox.getToken() == TipoToken.CONST_LOGICA) {
             casaToken(TipoToken.CONST_LOGICA);
         } else {
-            TratamentoErros.getInstancia().erroSintatico("Linha: "+prox.getLinha()+", Coluna: "+prox.getColuna()+" - <constante> era esperado NUM, CHAR ou BOOLEANO neste ponto da gramática, mas recebido " + prox);
+            TratamentoErros.getInstancia().erroSintatico("<constante> era esperado NUM, CHAR ou BOOLEANO neste ponto da gramática, mas recebido " + prox + ": linha "+prox.getLinha()+", coluna "+prox.getColuna());
         }
     }
     
@@ -99,7 +99,7 @@ public class AnalisadorSintatico {
         } else if (prox.getToken() == TipoToken.LOGICO) {
             casaToken(TipoToken.LOGICO);
         } else {
-            TratamentoErros.getInstancia().erroSintatico("Linha: "+prox.getLinha()+", Coluna: "+prox.getColuna()+" - <tipo> era esperado INTEIRO, REAL, CARACTERE, SEQUENCIA ou LOGICO neste ponto da gramática, mas recebido " + prox);
+            TratamentoErros.getInstancia().erroSintatico("<tipo> era esperado INTEIRO, REAL, CARACTERE, SEQUENCIA ou LOGICO neste ponto da gramática, mas recebido " + prox+ ": linha: "+prox.getLinha()+", coluna "+prox.getColuna());
         }
     }
     
@@ -249,7 +249,7 @@ public class AnalisadorSintatico {
             exp();
             casaToken(TipoToken.FECHA_PARENTESES);
         } else {
-            TratamentoErros.getInstancia().erroSintatico("Linha: "+prox.getLinha()+", Coluna: "+prox.getColuna()+" - <fator> era esperado ID, OP_NOT ou ABRE_PARENTESES neste ponto da gramática, mas recebido " + prox);
+            TratamentoErros.getInstancia().erroSintatico("<fator> era esperado ID, OP_NOT ou ABRE_PARENTESES neste ponto da gramática, mas recebido " + prox+ ": linha "+prox.getLinha()+", coluna "+prox.getColuna());
         }
     }
     
@@ -336,7 +336,7 @@ public class AnalisadorSintatico {
         } else if (prox.getToken() == TipoToken.ABRE_PARENTESES) {
             procedimento();
         } else {
-            TratamentoErros.getInstancia().erroSintatico("Linha: "+prox.getLinha()+" Coluna: "+prox.getColuna()+" - <atrib_proc> era esperado ABRE_COLCHETES ou ABRE_PARENTESES neste ponto da gramática, mas recebido " + prox);
+            TratamentoErros.getInstancia().erroSintatico("<atrib_proc> era esperado ABRE_COLCHETES ou ABRE_PARENTESES neste ponto da gramática, mas recebido " + prox + "linha "+prox.getLinha()+", coluna "+prox.getColuna());
         }
         casaToken(TipoToken.PONTO_E_VIRGULA);
         
@@ -458,7 +458,7 @@ public class AnalisadorSintatico {
         } else if (prox.getToken() == TipoToken.ID) {
             atribProc();
         } else {
-            TratamentoErros.getInstancia().erroSintatico("Linha: "+prox.getLinha()+", Coluna: "+prox.getColuna()+" - <comando> era esperado SENAO, ENQUANTO, PARA, RETORNAR, ENTRADA, SAIDA ou ID neste ponto da gramática, mas recebido " + prox);
+            TratamentoErros.getInstancia().erroSintatico("<comando> era esperado SENAO, ENQUANTO, PARA, RETORNAR, ENTRADA, SAIDA ou ID neste ponto da gramática, mas recebido " + prox+ ": linha "+prox.getLinha()+", Coluna "+prox.getColuna());
         }
     }
     

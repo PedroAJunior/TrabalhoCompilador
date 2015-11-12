@@ -37,35 +37,37 @@ public class TratamentoErros {
 
     public void erroLexico(int Linha, int Coluna, String Msg){
         QuantidadeErros++;
-        System.out.printf("Linha: %d,Coluna: %d - erro Lexico: %s \n",Linha,Coluna,Msg);
+        //System.out.printf("Linha: %d,Coluna: %d - erro Lexico: %s \n",Linha,Coluna,Msg);
+        System.err.printf("[ERRO]<erro léxico> %d: linha: %d, Coluna %s\n",Linha,Coluna,Msg);
         verificaMaxErros();
     }
     
     public void erroSintatico(String Mensagem){
         QuantidadeErros++;
-        System.out.printf("erro sintático: %s \n",Mensagem);
+        System.err.printf("[ERRO]<erro sintático>  %s \n",Mensagem);
         verificaMaxErros();
     }
 
     public void erroSintatico(RegistroLexico Prox, TipoToken Esperado){
         QuantidadeErros++;
-        System.out.printf("Linha: "+Prox.getLinha()+", Coluna: "+Prox.getColuna()+" - erro sintático: Recebido %s, Esperado %s \n",Prox,Esperado);
+        //System.out.printf("Linha: "+Prox.getLinha()+", Coluna: "+Prox.getColuna()+" - erro sintático: Recebido %s, Esperado %s \n",Prox,Esperado);
+        System.err.printf("[ERRO]<erro sintático> Esperado %s, Recebido %s: linha "+Prox.getLinha()+", Coluna "+Prox.getColuna()+"\n",Prox,Esperado);
         verificaMaxErros();
     }
     
     private void verificaMaxErros(){
         if(QuantidadeErros >= MAX_ERROS){
             relatorioErros();
-            System.out.println(" Muitos erros no código, compilação interrompida.");
+            System.err.println("[ALERTA] Muitos erros no código, compilação interrompida.");
             System.exit(1);
         }
     }
     
     public void relatorioErros(){
         if(QuantidadeErros>1)
-            System.out.printf("%d erros encontrados.\n",QuantidadeErros);
+            System.err.printf("[ALERTA] %d erros encontrados.\n",QuantidadeErros);
         else
-            System.out.printf("%d erro encontrado.\n",QuantidadeErros);
+            System.err.printf("[ALERTA] %d erro encontrado.\n",QuantidadeErros);
     }
     
 }

@@ -28,6 +28,6 @@ inteiro funcao achaMaior(inteiro[] V):
  Maior := V[i];
  fim_se;
  fim_para;
-{}
+{} isso é um erro
 retornar Maior;
 fim_funcao; 

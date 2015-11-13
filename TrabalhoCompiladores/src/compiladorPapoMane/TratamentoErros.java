@@ -51,7 +51,7 @@ public class TratamentoErros {
     public void erroSintatico(RegistroLexico Prox, TipoToken Esperado){
         QuantidadeErros++;
         //System.out.printf("Linha: "+Prox.getLinha()+", Coluna: "+Prox.getColuna()+" - erro sintático: Recebido %s, Esperado %s \n",Prox,Esperado);
-        System.err.printf("[ERRO]<erro sintático> Esperado %s, Recebido %s: linha "+Prox.getLinha()+", Coluna "+Prox.getColuna()+"\n",Prox,Esperado);
+        System.err.printf("[ERRO]<erro sintático> Esperado %s, Recebido %s: linha "+Prox.getLinha()+", Coluna "+Prox.getColuna()+"\n",Esperado, Prox);
         verificaMaxErros();
     }
     

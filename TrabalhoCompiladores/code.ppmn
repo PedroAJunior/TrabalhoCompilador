@@ -1,10 +1,10 @@
-## Programa de exemplo simples na linguagem Papomané, esse
+## \n Programa de exemplo simples na linguagem Papomané, esse
 programa preenche um vetor de inteiros, chama uma função
 que acha o maior valor de um vetor, e depois imprime o
 maior valor. ##
 principal Maior:
  variaveis
- inteiro Vet[10;
+ inteiro Vet[10];
  inteiro Maior, i;
  fim_variaveis;
  # Ler dados do teclado
@@ -28,6 +28,5 @@ inteiro funcao achaMaior(inteiro[] V):
  Maior := V[i];
  fim_se;
  fim_para;
-{} isso é um erro
 retornar Maior;
-fim_funcao; 
+fim_funcao 

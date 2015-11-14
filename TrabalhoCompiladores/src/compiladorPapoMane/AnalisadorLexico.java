@@ -252,7 +252,7 @@ public class AnalisadorLexico {
                     if(c=='\n'){
                         //Final do comentário de linha-única
                         e = 10;
-                        this.incrementaLinha();
+                        //this.incrementaLinha();
                     }
                     else if(c=='#'){
                         //Inicio dos caracteres do comentário de multi-linha

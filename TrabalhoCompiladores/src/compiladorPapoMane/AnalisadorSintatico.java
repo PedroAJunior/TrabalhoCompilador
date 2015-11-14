@@ -31,8 +31,8 @@ public class AnalisadorSintatico {
     
     public void casaToken(TipoToken Esperado) {
         if (prox.getToken() == Esperado) {
-            //OK
-            System.out.printf("[INFO]casaToken(%s) \n", prox); //debug
+            //OKprox.getToken() == Esperado
+            //System.out.printf("[INFO]casaToken(%s) \n", prox); //debug
             prox = anLex.obterProx();
         } else {
             //erro sintatico
